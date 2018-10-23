@@ -26,6 +26,7 @@ void linkedlist::addToEnd(string n)
 {
 	strnode *ptr = head;
 	strnode *temp = new strnode(n, nullptr, nullptr);
+    int same = 0;
 	//List is empty
 	if(head == nullptr)
 	{
@@ -35,9 +36,12 @@ void linkedlist::addToEnd(string n)
 	{
 		while(ptr->next != nullptr)
 		{
+            if(ptr->next->data == n || ptr->data == n){same++;}
+            
 			ptr = ptr->next;
 		}
-		ptr->next = temp;
+        if(same == 0){ptr->next = temp;}
+		
 	}
 }
 
@@ -57,47 +61,48 @@ void linkedlist::addToBeginning(string n)
 	}
 }
 
-void linkedlist::addtoDown(string n, int i)
+void linkedlist::addtoDown(string n, string i)
 {
 	strnode *ptr = head;
-	intnode *ptr2 = nullptr;
-	intnode *prev = nullptr;
-	intnode *temp = new intnode(i, nullptr, nullptr);
+	strnode *ptr2 = nullptr;
+	strnode *prev = nullptr;
+	strnode *temp = new strnode(i, nullptr, nullptr);
 	while(ptr != NULL)
 	{
 		if (ptr->data == n)
 		{
-			if (ptr->down == NULL) //first doc number
+			if (ptr->down == NULL) //first doc number case 2
 			{
-                void *tempptr;
-                tempptr = ptr->down;
-                tempptr = temp;
+                ptr->down = temp;
 			}
-			else	 // if the list is not empty
+            else if(stoi(ptr->down->data) > stoi(i))  // if the list is not empty case 4
+            {
+                ptr2 = ptr-> down;
+                ptr->down = temp;
+                temp->down =ptr2;
+            }
+			else //between two nodes or at the end
 			{
-                void *tempptr2;
-                tempptr2 = ptr2;
-				tempptr2 = ptr->down;
-
-				while (i > ptr2->data)	 //find its place according to data	
-				{  
-					if(ptr2-> down == NULL){
-						ptr2->down = temp;
-					}	
-					else
-					{prev = ptr2;
-					ptr2 = ptr2->down; }			
-				}
-
-				prev->down = temp;
-				temp->down = ptr2;
-			}
-			
-			ptr = ptr->down;
+                ptr2 = ptr->down;
+                while(ptr2->down != NULL)
+                {
+                    prev = ptr2;
+                    ptr2 = ptr2->down;
+                    if(stoi(prev->data) < stoi(i) && stoi(i) < stoi(ptr2->data)) // case 1
+                    {
+                           prev-> down = temp;
+                           temp->down = ptr2;
+                          
+                    }
+                }
+            ptr2->down = temp; //case 3
+            }
 			
 		}
 
-   		ptr=ptr->next;
+       
+    ptr=ptr->next;
+        
 	}
 }
 

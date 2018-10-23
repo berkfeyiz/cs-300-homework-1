@@ -18,7 +18,7 @@ struct strnode
 	{}
 };
 
-struct intnode
+/*struct intnode
 {
 	int data;
 	intnode *next;
@@ -30,7 +30,7 @@ struct intnode
 	intnode(const int &i, intnode * link, intnode * docs)
 		: data(i), next(link), down(docs)
 	{}
-};
+};*/
 
 class linkedlist
 {
@@ -46,7 +46,7 @@ public:
 
 	void addToBeginning(string n);	//Inserts new node at the beginning of the LinkedList with given data
 	void addToEnd(string n);	//Inserts new node at the end of the LinkedList with given data
-	void addtoDown(string n,int i);
+	void addtoDown(string n,string i);
 };
 
 
