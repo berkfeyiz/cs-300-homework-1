@@ -43,7 +43,7 @@ public:
 	linkedlist();			//Constructor
 	void printList();		//Prints the given LinkedList from head to end
 	void printListInverse();//Prints the given LinkedList from end to head
-
+    strnode * gethead(){return head;}
 	void addToBeginning(string n);	//Inserts new node at the beginning of the LinkedList with given data
 	void addToEnd(string n);	//Inserts new node at the end of the LinkedList with given data
 	void addtoDown(string n,string i);
