@@ -7,14 +7,14 @@
 
 using namespace std;
 
-void scan(vector<string>& words, linkedlist strings)
+void intersect(vector<string>& words, strnode<string>* head)
 {
-    strnode *ptr = strings.gethead();
+    strnode<string> *ptr = head;
     vector<string> foundwords;
     
     for(unsigned int i= 0; words.size()>i; i++)
     {
-        ptr = strings.gethead();
+        ptr = head;
         while (ptr != NULL)
         {
             if (words[i] == ptr->data)
@@ -25,10 +25,10 @@ void scan(vector<string>& words, linkedlist strings)
         }
     }
     
-    ptr = strings.gethead();
+    ptr = head;
     
-    strnode *downptr = nullptr;
-    strnode *downptrforcomp = nullptr;
+    strnode<string> *downptr = nullptr;
+    strnode<string> *downptrforcomp = nullptr;
     
     vector <int> intersecting;
     int count = 0;
@@ -44,7 +44,7 @@ void scan(vector<string>& words, linkedlist strings)
     }
     else if(foundwords.size() == 1)
     {
-        ptr = strings.gethead();
+        ptr = head;
         while(ptr != NULL)
         {
             if(foundwords[0] == ptr->data)
@@ -74,7 +74,7 @@ void scan(vector<string>& words, linkedlist strings)
     {
         for(unsigned int i= 0; 2>i; i++)
         {
-            ptr = strings.gethead();
+            ptr = head;
             while (ptr != NULL)
             {
                 if (foundwords[i] == ptr->data)
@@ -129,7 +129,7 @@ void scan(vector<string>& words, linkedlist strings)
     {
         for(unsigned int i= 0; 2>i; i++)
         {
-            ptr = strings.gethead();
+            ptr = head;
             while (ptr != NULL)
             {
                 if (foundwords[i] == ptr->data)
@@ -174,7 +174,7 @@ void scan(vector<string>& words, linkedlist strings)
         
         for (unsigned int i = 2; foundwords.size() > i; i ++)
         {
-           ptr = strings.gethead();
+           ptr = head;
             while (ptr != NULL)
             {
                 if (foundwords[i] == ptr->data)
@@ -182,7 +182,7 @@ void scan(vector<string>& words, linkedlist strings)
                     downptr = ptr->down;
                     for(unsigned int j = 0; intersecting.size() >j; j++)
                     {
-                       
+                       isitthere = false;
                         while(downptr != NULL)
                         {
                             if(stoi(downptr->data) == intersecting[j])
@@ -214,7 +214,7 @@ void scan(vector<string>& words, linkedlist strings)
     }
 }
 
-void input(linkedlist strings)
+vector<string> input(linkedlist<string> strings)
 {
     
     string inputs, f;
@@ -250,8 +250,7 @@ void input(linkedlist strings)
        {break;}
     }
     
-    scan(words, strings);
-    
+	return words;
 }
 
 int main()
@@ -267,7 +266,8 @@ int main()
     string number;
     ifstream inFile;
     inFile.open("docdb.txt");
-    linkedlist strings;
+    linkedlist<string> strings;
+	vector<string> words;
     
     if (!inFile) {
         cout << "Unable to open file";
@@ -300,20 +300,7 @@ int main()
         
     }
     
-    input(strings);
-    return 0;
-}
-          if (count == 2)
-          {
-             strings.addToEnd(word);
-             strings.addtoDown(word, number);
-              
-              count--;
-              count--;
-
-          }
-          
-    }
-    strings.printList();
+     words = input(strings);
+	 intersect(words, strings.gethead());
     return 0;
 }
